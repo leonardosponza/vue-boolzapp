@@ -27,7 +27,84 @@
                 </div>
             </header>
 
-        <main></main>   
+             <!-- inizio sezione notifiche -->
+             <section class="notify">
+                <div class="bell">
+                    <i class="fas fa-bell-slash"></i>
+                </div>
+                <div class="description">
+                    <h5>Ricevi notifiche di nuovi messaggi</h5>
+                    <a href="#">Attiva notifiche desktop</a>
+                </div>
+            </section>
+            <!-- fine sezione notifiche -->
+
+            <!-- inizio sezione ricerca chat -->
+            <section class="chat-src">
+                <label for="src-chat" class="pointer"><i class="fas fa-search"></i></label>
+                <input name="src-chat" type="text" placeholder="Cerca o inizia una nuova chat">
+            </section>
+            <!-- fine sezione ricerca chat -->
+
+            <!-- inizio sezione lista studenti -->
+            <section id="users-list">
+                <ul class="list-none">
+                    <li v-for="(user,index) in contacts" class="user pointer" @click="selectUser(index)">
+                        <img class="avatar" :src="'img/avatar' +  user.avatar + '.jpg'" alt="user avatar">
+                        <span class="user-name">{{user.name}}</span>
+                    </li>
+                </ul>
+            </section>
+            <!-- fine sezione lista studenti -->
+        </section>
+        <!-- fine colonna sinistra -->
+
+        <!-- inizio colonna destra -->
+        <section class="right-side float-left">
+            <!-- inizio header dx -->
+            <main>
+                <div class="user">
+                    <img class="avatar" :src="'img/avatar' + contacts[selUser].avatar + '.jpg'" alt="user avatar">
+                    <div class="description">
+                        <div>{{contacts[selUser].name}}</div>
+                        <div class="last-seen">Ultimo accesso oggi alle</div>
+                    </div>
+                </div>
+                <div class="icone">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-paperclip"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </main>
+            <!-- fine header dx -->
+
+            <!-- inizio sezione chat -->
+            <section class="chat">
+                <ul class="list-none">
+                    <li v-for="message in contacts[selUser].messages" class="clearfix">
+                        <div :class="message.status">
+                            {{message.text}}
+                            <div class="date-time-msg">
+                                {{message.date}}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <!-- fine sezione chat -->
+
+            <!-- inizio sezione input messaggio -->
+            <section class="message">
+                <i class="far fa-smile"></i>
+                <input type="text" placeholder="Scrivi un messaggio">
+                <i class="fas fa-microphone"></i>
+            </section>
+            <!-- fine sezione input messaggio -->
+        </section>
+        <!-- fine colonna destra -->
+
+    </div>
+    <!-- fine contenitore principale --> 
     
 
 
