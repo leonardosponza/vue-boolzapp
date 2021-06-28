@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #dcdbd2;
+}
+.float-left{
+    float: left;
+}
+img.avatar{
+    height: 50px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+header .icone i{
+    margin: 0 10px;
+    color: gray;
+}
