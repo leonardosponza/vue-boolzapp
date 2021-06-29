@@ -53,18 +53,18 @@ const app = new Vue({
                 messages: [
                     {
                         date: '20/03/2020 16:30:00',
-                        text: 'Ciao come stai?',
-                        status: 'sent'
-                    },
-                    {
-                        date: '20/03/2020 16:30:55',
-                        text: 'Bene grazie! Stasera ci vediamo?',
+                        text: 'la Marianna va in campagnia',
                         status: 'received'
                     },
                     {
-                        date: '20/03/2020 16:35:00',
-                        text: 'Mi piacerebbe ma devo andare a fare la spesa.',
+                        date: '20/03/2020 16:30:55',
+                        text: 'sicuro di non aver sbagliato chat?',
                         status: 'sent'
+                    },
+                    {
+                        date: '20/03/2020 16:35:00',
+                        text: 'ah scusa!',
+                        status: 'received'
                     }
                 ],
             },
@@ -75,19 +75,14 @@ const app = new Vue({
                 messages: [
                     {
                         date: '20/03/2020 16:30:00',
-                        text: 'Ciao come stai?',
+                        text: 'lo sai che ha aperto una nuova pizzeria?',
                         status: 'sent'
                     },
                     {
                         date: '20/03/2020 16:30:55',
-                        text: 'Bene grazie! Stasera ci vediamo?',
+                        text: 'si ma preferirei andare al cinema',
                         status: 'received'
                     },
-                    {
-                        date: '20/03/2020 16:35:00',
-                        text: 'Mi piacerebbe ma devo andare a fare la spesa.',
-                        status: 'sent'
-                    }
                 ],
             }
         ],
