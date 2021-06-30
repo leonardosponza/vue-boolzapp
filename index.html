@@ -10,105 +10,112 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app" class="container clearfix">
+ <!-- inizio contenitore principale -->
+ <div id="app" class="container clearfix">
         
-        
-        <section class="left-side float-left">
-            
-            <header>
-                <div class="user">
-                    <img class="avatar" src="img/avatar_io.jpg" alt="">
-                    <span class="user-name">Nome Utente</span>
-                </div>
-                <div class="icone">
-                    <i class="fas fa-circle-notch"></i>
-                    <i class="fas fa-comment-alt"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </div>
-            </header>
+    <!-- inizio colonna sinistra -->
+    <section class="left-side float-left">
+        <!-- inizio header sx -->
+        <header>
+            <div class="user">
+                <img class="avatar" src="img/avatar_io.jpg" alt="user avatar">
+                <span class="user-name">leo</span>
+            </div>
+            <div class="icone">
+                <i class="fas fa-circle-notch"></i>
+                <i class="fas fa-comment-alt"></i>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </header>
+        <!-- fine header sx -->
 
-             <!-- inizio sezione notifiche -->
-             <section class="notify">
-                <div class="bell">
-                    <i class="fas fa-bell-slash"></i>
-                </div>
-                <div class="description">
-                    <h5>Ricevi notifiche di nuovi messaggi</h5>
-                    <a href="#">Attiva notifiche desktop</a>
-                </div>
-            </section>
-            <!-- fine sezione notifiche -->
-
-            <!-- inizio sezione ricerca chat -->
-            <section class="chat-src">
-                <label for="src-chat" class="pointer"><i class="fas fa-search"></i></label>
-                <input name="src-chat" type="text" placeholder="Cerca o inizia una nuova chat">
-            </section>
-            <!-- fine sezione ricerca chat -->
-
-            <!-- inizio sezione lista studenti -->
-            <section id="users-list">
-                <ul class="list-none">
-                    <li v-for="(user,index) in contacts" class="user pointer" @click="selectUser(index)">
-                        <img class="avatar" :src="'img/avatar' +  user.avatar + '.jpg'" alt="user avatar">
-                        <span class="user-name">{{user.name}}</span>
-                    </li>
-                </ul>
-            </section>
-            <!-- fine sezione lista studenti -->
+        <!-- inizio sezione notifiche -->
+        <section class="notify">
+            <div class="bell">
+                <i class="fas fa-bell-slash"></i>
+            </div>
+            <div class="description">
+                <h5>Ricevi notifiche di nuovi messaggi</h5>
+                <a href="#">Attiva notifiche desktop</a>
+            </div>
         </section>
-        <!-- fine colonna sinistra -->
+        <!-- fine sezione notifiche -->
 
-        <!-- inizio colonna destra -->
-        <section class="right-side float-left">
-            <!-- inizio header dx -->
-            <main>
-                <div class="user">
-                    <img class="avatar" :src="'img/avatar' + contacts[selUser].avatar + '.jpg'" alt="user avatar">
-                    <div class="description">
-                        <div>{{contacts[selUser].name}}</div>
-                        <div class="last-seen">Ultimo accesso oggi alle</div>
-                    </div>
-                </div>
-                <div class="icone">
-                    <i class="fas fa-search"></i>
-                    <i class="fas fa-paperclip"></i>
-                    <i class="fas fa-ellipsis-v"></i>
-                </div>
-            </main>
-            <!-- fine header dx -->
+        <!-- inizio sezione ricerca chat -->
+        <section class="chat-src">
+            <label for="src-chat" class="pointer" @click="filterUser"><i class="fas fa-search"></i></label>
+            <input name="src-chat" type="text" placeholder="Cerca o inizia una nuova chat" @keyup="filterUser" v-model="userFilter">
+        </section>
+        <!-- fine sezione ricerca chat -->
 
-            <!-- inizio sezione chat -->
-            <section class="chat">
-                <ul class="list-none">
-                    <li v-for="message in contacts[selUser].messages" class="clearfix">
-                        <div :class="message.status">
-                            {{message.text}}
-                            <div class="date-time-msg">
-                                {{message.date}}
-                            </div>
+        <!-- inizio sezione lista studenti -->
+        <section id="users-list">
+            <ul class="list-none">
+                <!-- use v-for to auto-fill the list -->
+                <li v-for="(user,index) in contacts" v-if="user.visible" :class="(index == selUser) ? 'user-select' : ''" class="pointer" @click="selectUser(index)">
+                    <!-- inizio dati utente -->
+                    <div class="user">
+                        <img class="avatar" :src="'img/avatar' +  user.avatar + '.jpg'" :alt="user.name">
+                        <div class="description">
+                            <div class="user-name">{{user.name}}</div>
+                            <div class="last-seen">{{user.lastMsg}}</div>
                         </div>
-                    </li>
-                </ul>
-            </section>
-            <!-- fine sezione chat -->
+                    </div>
+                    <!-- fine dati utente -->
 
-            <!-- inizio sezione input messaggio -->
-            <section class="message">
-                <i class="far fa-smile"></i>
-                <input type="text" placeholder="Scrivi un messaggio">
-                <i class="fas fa-microphone"></i>
-            </section>
-            <!-- fine sezione input messaggio -->
+                </li>
+            </ul>
         </section>
-        <!-- fine colonna destra -->
+        <!-- fin sezione lista studenti -->
+    </section>
+    <!-- fine colonna sinistra -->
 
-    </div>
-    <!-- fine contenitore principale --> 
-    
+    <!-- inizio colonna destra -->
+    <section class="right-side float-left">
+        <!-- inizio header dx -->
+        <header>
+            <div class="user">
+                <img class="avatar" :src="'img/avatar' + contacts[selUser].avatar + '.jpg'" alt="user avatar">
+                <div class="description">
+                    <div>{{contacts[selUser].name}}</div>
+                </div>
+            </div>
+            <div class="icone">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-paperclip"></i>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+        </header>
+        <!-- fine header dx -->
 
+        <!-- inizio sezione chat -->
+        <section class="chat">
+            <ul class="list-none">
+                <li v-for="(message, indice) in contacts[selUser].messages" class="clearfix">
+                    <div :class="message.status">
+                        {{message.text}}
+                        <div class="date-time-msg">
+                            {{message.date}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- fine sezione chat -->
 
+        <!-- inizio sezione input  -->
+        <section class="message">
+            <i class="far fa-smile"></i>
+            <input id="msgText" type="text" placeholder="Scrivi un messaggio" v-model="userMessage" @keyup.enter="insertMsg">
+        </section>
+        <!-- fine sezione input  -->
+    </section>
+    <!-- fine colonna destra -->
 
-    <script src="js/script.js"></script>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.5/dayjs.min.js" integrity="sha512-n6mJ6AqoohFfbgx3x7N162B/zRNs5x8uvsStlHC+LCvqwKW7oiucE07Ehatg62ybx6Vo1ctaZwm/4sSRUTSIQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="js/script.js"></script>
 </body>
 </html>
